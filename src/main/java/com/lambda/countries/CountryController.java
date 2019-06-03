@@ -34,13 +34,13 @@ public class CountryController {
     }
 
     //localhost:2019/data/countries/a
-    @GetMapping(value="/countries/a",
+    @GetMapping(value="/countries/{letter}",
                 produces={"application/json"})
     public ResponseEntity<?> getACountries(
-            @PathVariable char a){
+            @PathVariable char letter){
 
         ArrayList<Country> rtnACountries=CountriesApplication.myCountryList.findCountries(e->e.getName().toUpperCase().
-                charAt(0) == Character.toUpperCase(a));
+                charAt(0) == Character.toUpperCase(letter));
         return new ResponseEntity<>(rtnACountries,HttpStatus.OK);
     }
 
