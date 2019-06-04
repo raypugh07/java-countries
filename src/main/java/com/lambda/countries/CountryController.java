@@ -44,5 +44,37 @@ public class CountryController {
         return new ResponseEntity<>(rtnACountries,HttpStatus.OK);
     }
 
+    //localhost:2019/data/name/size/{number}
+    @GetMapping(value="/name/size/{number}",
+                produces={"application/json"})
+    public ResponseEntity<?> getTheseCountries(
+            @PathVariable int number) {
+
+        ArrayList<Country> rtnTheseCountries=CountriesApplication.myCountryList.findCountries(e->e.getName().length()==
+                number);
+        return new ResponseEntity<>(rtnTheseCountries,HttpStatus.OK);
+    }
+
+    //localhost:2019/data/population/size/{people}
+    @GetMapping(value="/population/size/{people}",
+                produces={"application/json"})
+    public ResponseEntity<?> getThoseCountries(
+            @PathVariable double people) {
+        ArrayList<Country> rtnThoseCountries=CountriesApplication.myCountryList.findCountries(e->e.getPopulation()>=
+                people);
+        return new ResponseEntity<>(rtnThoseCountries,HttpStatus.OK);
+    }
+
+    //localhost:2019/data/population/min
+   /* @GetMapping(value="/population/min",
+                produces = {"application/json"})
+    public ResponseEntity<?> getMinCountry(
+            @PathVariable double min){
+        ArrayList<Country> rtnMinCountry=CountriesApplication.myCountryList.findCountry(e->e.getPopulation())
+
+    }*/
+
+    
+
 
 }
