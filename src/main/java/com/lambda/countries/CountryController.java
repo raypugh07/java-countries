@@ -41,6 +41,9 @@ public class CountryController {
 
         ArrayList<Country> rtnACountries=CountriesApplication.myCountryList.findCountries(e->e.getName().toUpperCase().
                 charAt(0) == Character.toUpperCase(letter));
+        rtnACountries.sort((e1,e2)->e1.getName().compareToIgnoreCase
+                (e2.getName()));
+
         return new ResponseEntity<>(rtnACountries,HttpStatus.OK);
     }
 
@@ -52,6 +55,8 @@ public class CountryController {
 
         ArrayList<Country> rtnTheseCountries=CountriesApplication.myCountryList.findCountries(e->e.getName().length()==
                 number);
+        rtnTheseCountries.sort((e1,e2)->e1.getName().compareToIgnoreCase
+                (e2.getName()));
         return new ResponseEntity<>(rtnTheseCountries,HttpStatus.OK);
     }
 
@@ -69,12 +74,15 @@ public class CountryController {
    /* @GetMapping(value="/population/min",
                 produces = {"application/json"})
     public ResponseEntity<?> getMinCountry(
-            @PathVariable double min){
-        ArrayList<Country> rtnMinCountry=CountriesApplication.myCountryList.findCountry(e->e.getPopulation())
+            @PathVariable int min){
+       ArrayList<Country> rtnMinCountry=CountriesApplication.myCountryList.findCountries(e->e.getPopulation()<=min);
+        rtnMinCountry.sort((e1,e2)->(int)e1.getPopulation()-
+                (e2.getPopulation()));
+       return new ResponseEntity<>(rtnMinCountry,HttpStatus.OK);
 
     }*/
 
-    
+
 
 
 }
